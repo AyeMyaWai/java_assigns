@@ -1,0 +1,146 @@
+package com.example;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class StudentDataCsv implements Serializable {
+	private int id;
+	private String name;
+	private int age;
+	private String grade;
+	static ArrayList<StudentDataCsv> people = new ArrayList<StudentDataCsv>();
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
+
+	@Override
+	public String toString() {
+		return "{" + id + "::" + name + "::" + age + "::" + grade + "}";
+	}
+
+	public StudentDataCsv(Integer id, String name, Integer age, String grade) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.age = age;
+		this.grade = grade;
+	}
+
+	public static void writeFile() {
+		try (FileOutputStream file = new FileOutputStream("test.csv");
+				OutputStreamWriter out = new OutputStreamWriter(file, "UTF-8");
+				BufferedWriter buf = new BufferedWriter(out);
+				PrintWriter writer = new PrintWriter(buf)) {
+
+			writer.print("No");
+			writer.print(",");
+			writer.print("Student Name");
+			writer.print(",");
+			writer.print("Age");
+			writer.print(",");
+			writer.print("Grade");
+			writer.print("\n");
+			people.stream().forEach(data -> {
+				writer.print(data.getId());
+				writer.print(",");
+				writer.print(data.getName());
+				writer.print(",");
+				writer.print(data.getAge());
+				writer.print(",");
+				writer.print(data.getGrade());
+				writer.print("\n");
+			});
+
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
+	}
+
+	public static void readFile() {
+		
+		
+		try (FileOutputStream file = new FileOutputStream("output.csv");
+				OutputStreamWriter out = new OutputStreamWriter(file, "UTF-8");
+				BufferedWriter buf = new BufferedWriter(out);
+				PrintWriter writer = new PrintWriter(buf)) {
+			File f = new File("output.csv");
+			if(f.exists() && !f.isDirectory()) { 
+			Scanner scanner = new Scanner(new File("test.csv"));
+			scanner.useDelimiter(",");
+			while (scanner.hasNext()) {
+				writer.print(scanner.next() + ",");
+			}
+			scanner.close();
+			}
+			else {
+				System.out.println("File not exits");
+			}
+
+		} catch (Throwable t) {
+			t.printStackTrace();
+		}
+		
+	}
+
+	static void addData() {
+
+		StudentDataCsv p1 = new StudentDataCsv(1, "Taro", 17, "HS 2");
+		StudentDataCsv p2 = new StudentDataCsv(2, "Hanako", 15, "HS 1");
+		StudentDataCsv p3 = new StudentDataCsv(3, "Sato", 18, "HS 3");
+		StudentDataCsv p4 = new StudentDataCsv(4, "Nanase", 18, "HS 1");
+
+		people.add(p1);
+		people.add(p2);
+		people.add(p3);
+		people.add(p4);
+	}
+
+	public static void main(String... args) throws IOException, ClassNotFoundException {
+		addData();
+		//writeFile();
+		readFile();
+
+		System.out.println("done.");
+	}
+}

@@ -1,0 +1,56 @@
+package com.example;
+
+import java.util.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.time.format.*;
+import java.time.*;
+import java.text.*;
+
+public class CalculateAge {
+	final static String DATE_FORMAT = "yyyy-MM-dd";
+	static boolean status = true;
+
+	public static void main(String[] args) throws IOException {
+		do {
+			try {
+				String birth;
+				System.out.println("Enter Date(yyyy-mm-dd)");
+				BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+				birth = reader.readLine();
+				if (isLegalDate(birth)) {
+					LocalDate date = LocalDate.parse(birth, DateTimeFormatter.ISO_DATE);
+
+					Date datee = new Date();
+					SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT);
+					String current = formatter.format(datee);
+					LocalDate currentdate = LocalDate.parse(current, DateTimeFormatter.ISO_DATE);
+
+					Period age = Period.between(date, currentdate);
+					int years = age.getYears();
+					int months = age.getMonths();
+					System.out.println("Year is" + years + " " + "Month is" + months);
+				} else {
+					System.out.println("Enter valid date");
+				}
+
+			} catch (IllegalArgumentException e) {
+				System.out.println("Exception: " + e);
+			} catch (DateTimeParseException e) {
+				System.out.println("Exception: " + e);
+			}
+
+		} while (status);
+
+	}
+
+	static boolean isLegalDate(String s) {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		sdf.setLenient(false);
+		return sdf.parse(s, new ParsePosition(0)) != null;
+	}
+
+}

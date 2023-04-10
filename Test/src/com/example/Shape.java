@@ -1,0 +1,18 @@
+package com.example;
+
+import java.io.*;
+
+public class Shape {
+	String color;
+
+	void getArea() {
+		System.out.println("Parent GetArea");
+
+	}
+
+	void getPerimeter() {
+		System.out.println("Parent Getperimeter");
+
+	}
+
+}

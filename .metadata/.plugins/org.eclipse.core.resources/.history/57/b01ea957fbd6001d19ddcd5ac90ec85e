@@ -1,0 +1,36 @@
+package com.example;
+
+public class Book {
+int bookId;
+String title;
+int lendFlag;
+public int getBookId() {
+	return bookId;
+}
+public void setBookId(int bookId) {
+	this.bookId = bookId;
+}
+public String getTitle() {
+	return title;
+}
+public void setTitle(String title) {
+	this.title = title;
+}
+public int getLendFlag() {
+	return lendFlag;
+}
+public void setLendFlag(int lendFlag) {
+	this.lendFlag = lendFlag;
+}
+public Book(int bookId, String title, int lendFlag) {
+	super();
+	this.bookId = bookId;
+	this.title = title;
+	this.lendFlag = lendFlag;
+}
+public void showBook() {
+	
+	System.out.println(this.bookId+" "+this.title+" "+this.lendFlag);
+}
+
+}

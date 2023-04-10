@@ -1,0 +1,12 @@
+package com.example;
+
+public class Shape {
+	String color;
+	void getArea() {
+		
+	}
+	void getParameter() {
+		
+	}
+
+}

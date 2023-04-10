@@ -1,0 +1,39 @@
+package com.example;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Main {
+	public static void main(String[] args) {
+		Student student = new Student();
+		String userinput = student.initialDisplay();
+		switch (userinput) {
+		case "1":
+			student.viewAttendance();
+			main(null);
+			;
+			break;
+		case "2":
+			student.markAttendance();
+
+			break;
+		case "3":
+			exit();
+			break;
+		default:
+			showErrorMessage();
+
+		}
+
+	}
+
+	
+	public static void exit() {
+		System.out.println("Exiting Student Attendence Management System Goodbye!");
+	}
+	public static void showErrorMessage() {
+		System.out.println("Invalid choice. Please enter a number");
+		main(null);
+	}
+}

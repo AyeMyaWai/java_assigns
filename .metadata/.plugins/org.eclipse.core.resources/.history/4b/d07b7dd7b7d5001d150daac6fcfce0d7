@@ -1,0 +1,140 @@
+package com.example;
+
+import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Student implements Attendance {
+	int studentId;
+	String studentName;
+	char attendanceStatus;
+
+	static List<Student> studentList = new ArrayList<Student>();
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public char getAttendanceStatus() {
+		return attendanceStatus;
+	}
+
+	public void setAttendanceStatus(char attendanceStatus) {
+		this.attendanceStatus = attendanceStatus;
+	}
+
+	public Student(int studentId, String studentName, char attendanceStatus) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.attendanceStatus = attendanceStatus;
+	}
+
+	public Student() {
+
+	}
+
+	@Override
+	public void viewAttendance() {
+		// TODO Auto-generated method stub
+		Student student1 = new Student(1, "Taro", ' ');
+		Student student2 = new Student(2, "Hanako", ' ');
+		Student student3 = new Student(3, "Sato", ' ');
+		Student student4 = new Student(4, "Nanase", ' ');
+		studentList.add(student1);
+		studentList.add(student2);
+		studentList.add(student3);
+		studentList.add(student4);
+		saveStudentInFile(studentList);
+		String fileName = "C:/Users/Dell/Desktop/attendance1.txt";
+		Path path = Paths.get(fileName);
+		Scanner scanner = null;
+		try {
+			scanner = new Scanner(path);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println("Read text file using Scanner");
+		// read line by line
+		while (scanner.hasNextLine()) {
+			// process each line
+			String line = scanner.nextLine();
+			System.out.println(line);
+		}
+		scanner.close();
+
+	}
+
+	@Override
+	public void markAttendance() {
+		// TODO Auto-generated method stub
+
+		// saveStudentInFile(studentList);
+		checkStudent();
+
+	}
+
+	private static void saveStudentInFile(List<Student> studentList2) {
+
+		try {
+			BufferedWriter writer = new BufferedWriter(new FileWriter("C:/Users/Dell/Desktop/attendance1.txt"));
+//			writer.write(this.g);
+//			writer.newLine();
+//			writer.write("works: " + this.works.size());
+//			writer.newLine();
+
+			studentList2.forEach(student -> {
+				try {
+					writer.write(student.studentName + " " + student.attendanceStatus);
+					writer.newLine();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			});
+
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void checkStudent() {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Enter The Student ID");
+		String userinput;
+		try {
+			userinput = reader.readLine();
+			List<Student> filterStudent = studentList.stream()
+					.filter(data -> data.studentId == Integer.parseInt(userinput)).collect(Collectors.toList());
+			if (filterStudent.size() > 0) {
+				System.out.println("Enter The attendance status (p or a");
+				String attendanceStatus = reader.readLine();
+
+			} else {
+				System.out.println("Please Enter the correct student ID");
+				checkStudent();
+			}
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			System.out.print("Please enter the number");
+			checkStudent();
+			// e.printStackTrace();
+		}
+
+	}
+}

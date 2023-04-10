@@ -1,0 +1,36 @@
+package com.example;
+
+public class Rectangle extends Shape {
+	double length;
+	double width;
+	public double getLength() {
+		return length;
+	}
+
+	public void setLength(double length) {
+		this.length = length;
+	}
+
+	
+
+	public double getWidth() {
+		return width;
+	}
+
+	public void setWidth(double width) {
+		this.width = width;
+	}
+
+	void getArea() {
+
+		System.out.println("Area of Rectangle  " + " " + (length * width));
+
+	}
+
+	void getPerimeter() {
+
+		System.out.println("Premiter of Rectangle   " + "  "+ (2 * length * width));
+
+	}
+
+}

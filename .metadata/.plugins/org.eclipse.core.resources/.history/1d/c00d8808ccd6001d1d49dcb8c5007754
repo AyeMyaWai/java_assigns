@@ -1,0 +1,113 @@
+package com.example;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Machine1 {
+	static boolean status = true;
+	static String wantContinue = "no";
+	static int finalAmount;
+	static int enterprice;
+    static int limit_runtime = 0;
+	public static void main(String[] args) throws IOException {
+		List<ItemInfo> itemList = new ArrayList<ItemInfo>();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		String price;
+		String inputitem;
+
+		int inputlistitem = 0;
+		limit_runtime=limit_runtime+1;
+		if(limit_runtime==1) {
+		ItemInfo iteminfo1 = new ItemInfo(1, "Tea", 198);
+		ItemInfo iteminfo2 = new ItemInfo(2, "Pure Water ", 100);
+		ItemInfo iteminfo3 = new ItemInfo(3, "Pepsi", 130);
+		ItemInfo iteminfo4 = new ItemInfo(4, "Coffee", 150);
+		ItemInfo iteminfo5 = new ItemInfo(5, "Energy Drink", 220);
+		itemList.add(iteminfo1);
+		itemList.add(iteminfo2);
+		itemList.add(iteminfo3);
+		itemList.add(iteminfo4);
+		itemList.add(iteminfo5);
+		}
+		int i = 1;
+
+		do {
+			try {
+
+				if (wantContinue.equals("no")) {
+					itemList.stream().forEach(data -> System.out.println(data.toString()));// for initial display
+					System.out.println("Enter Price");
+					price = reader.readLine(); // taking string input
+					enterprice = Integer.parseInt(price);
+				} else {
+					enterprice = finalAmount;
+				}
+				if (enterprice >= 100) {
+
+					itemList.stream().filter(data -> data.getPrice() <= enterprice).forEach(info -> {
+						System.out.println(info.toString());
+					});// display item available with money
+
+					List<ItemInfo> filter_array = itemList.stream().filter(data -> data.getPrice() <= enterprice)
+							.collect(Collectors.toList());
+					System.out.println("Enter Item");
+					inputitem = reader.readLine(); // taking string input
+					int number = Integer.parseInt(inputitem);
+					filter_array.forEach((result) -> {
+						if (result.getItemno() == number) {
+							finalAmount = enterprice - result.getPrice(); // calculate remaining amount
+							System.out.println("Thank you");
+							if (finalAmount != 0) {
+								System.out.println("Remaining Amount is" + finalAmount);
+							}
+							if (finalAmount >= 100) {
+								System.out.println("Do you want to continue(yes or no)");
+
+								
+									String inputitemm;
+									try {
+										inputitemm = reader.readLine();
+										if (inputitemm.equals("yes")) {
+											wantContinue = "yes";
+											main(null);
+
+										} else {
+											status = false;
+										}
+									} catch (IOException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+									
+								
+
+							} else {
+								System.out.println("Remaining amount not match");
+								status = false;
+							}
+						}
+//						else {
+//							System.out.println("Wrong Item Entered");
+//						}
+
+					});
+
+				} else {
+					status = false;
+					System.out.println("Your Amount is not enough");
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("Enter the number");
+			}
+		} while (status);
+
+	}
+//	static void continuteBuying() {
+//		
+//		System.out.print("sdf");
+//	}
+
+}

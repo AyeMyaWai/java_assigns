@@ -1,0 +1,44 @@
+package com.example;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
+
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class AddCourse {
+
+    public static void main(String... args) {
+
+        System.out.println("please input two values: ");
+
+        try (  // Scanner in = new Scanner(System.in);
+                FileOutputStream file = new FileOutputStream("test.csv");
+                OutputStreamWriter out = new OutputStreamWriter(file, "UTF-8");
+                BufferedWriter buf = new BufferedWriter(out);
+                PrintWriter writer = new PrintWriter(buf)) {
+
+        	ArrayList<StudentData> input = new ArrayList<StudentData>();
+        	StudentData stuData1 = new StudentData(1,"Taro",17,"HS 2");
+        	StudentData stuData2 = new StudentData(2,"Hanako",15,"HS 1");
+        	StudentData stuData3 = new StudentData(3,"Sato",15,"HS 3");
+        	StudentData stuData4 = new StudentData(4,"Nanase",15,"HS 1");
+
+        	
+        	input.add(stuData1);
+        	input.add(stuData1);
+        	input.add(stuData3);
+        	input.add(stuData4);
+
+        	for (StudentData val : input) {
+        		 writer.print(val);
+        		 writer.print("\n");
+        	}
+        } catch (Throwable t) {
+            t.printStackTrace();
+        }
+
+        System.out.println("done.");
+    }
+}

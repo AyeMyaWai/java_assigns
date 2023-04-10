@@ -1,0 +1,39 @@
+package com.example;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Inheritance {
+	public static void main(String[] args) {
+		System.out.println("Welcome to Area and Perimeter Calculator:");
+		System.out.println("Enter the radius of the circle");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		try {
+			String radius = reader.readLine();
+			
+			System.out.println("Enter the width of the rectangle");
+			String width = reader.readLine();
+			
+			System.out.println("Enter the height of the rectangle");
+			String length = reader.readLine();
+			
+			Circle circle = new Circle();
+			circle.radius = Integer.parseInt(radius);
+			circle.getArea();//circle area
+			circle.getPerimeter();
+			
+			Rectangle rectangle = new Rectangle();
+			rectangle.width = Integer.parseInt(width);
+			rectangle.length = Integer.parseInt(length);
+			rectangle.getArea();
+			rectangle.getPerimeter();
+			
+			
+		} catch (NumberFormatException | IOException e) {
+			System.out.println("Please enter the nubmer");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

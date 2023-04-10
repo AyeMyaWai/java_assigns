@@ -1,0 +1,24 @@
+package com.example;
+import java.io.*;
+import java.util.*;
+
+public class CalculateExpence {
+	public static void main(String[] args) {
+        ArrayList<Integer> information = new ArrayList<>();
+       
+        Scanner sc = new Scanner(System.in);   
+		if(sc.hasNextInt()) {
+		   System.out.println(sc.nextInt()+" is valid Integer");
+		}
+		else
+		{
+			 System.out.println(sc.nextInt()+" is valid Integer");
+		}
+		sc.close();
+        }
+        
+
+		
+	
+
+}

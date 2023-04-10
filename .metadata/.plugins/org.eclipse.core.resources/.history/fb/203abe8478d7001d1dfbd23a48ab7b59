@@ -1,0 +1,240 @@
+package com.example;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
+
+public class Student implements Attendance, Serializable {
+	int studentId;
+	String studentName;
+	char attendanceStatus;
+	static int limit_runtime = 0;
+	// static List<Student> studentList = new ArrayList<Student>();
+	static ArrayList<Student> studentList = new ArrayList<>();
+
+	public int getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(int studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getStudentName() {
+		return studentName;
+	}
+
+	public void setStudentName(String studentName) {
+		this.studentName = studentName;
+	}
+
+	public char getAttendanceStatus() {
+		return attendanceStatus;
+	}
+
+	public void setAttendanceStatus(char attendanceStatus) {
+		this.attendanceStatus = attendanceStatus;
+	}
+
+	public Student(int studentId, String studentName, char attendanceStatus) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.attendanceStatus = attendanceStatus;
+	}
+
+	public Student() {
+
+	}
+
+	@Override
+	public void viewAttendance() {
+
+		// TODO Auto-generated method stub
+		try {
+			writeFile();
+			readFile();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	public String toString() {
+		return (this.getStudentId() + "  " + this.getStudentName() + "         " + this.getAttendanceStatus());
+
+	}
+
+	@Override
+	public void markAttendance() {
+		// TODO Auto-generated method stub
+		// saveStudentInFile(studentList);
+		try {
+			checkStudent();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	static String initialDisplay() {
+		String userinput = null;
+		System.out.println("Welcome to Student Attendence Management System.Please Choose an option");
+		System.out.println("1. View all student's attendance");
+		System.out.println("2. Mark attendence");
+		System.out.println("3.Exit");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Enter Your Choice");
+		try {
+
+			userinput = reader.readLine();
+
+		} catch (NumberFormatException | IOException e) {
+
+			// TODO Auto-generated catch block
+			// e.printStackTrace();
+		}
+		return userinput;
+	}
+
+	public static void addStudent() {
+		// Creating the object
+		studentList = new ArrayList<>();
+		Student student1 = new Student(1, "Taro", ' ');
+		Student student2 = new Student(2, "Hanako", ' ');
+		Student student3 = new Student(3, "Sato", ' ');
+		Student student4 = new Student(4, "Nanase", ' ');
+		studentList.add(student1);
+		studentList.add(student2);
+		studentList.add(student3);
+		studentList.add(student4);
+	}
+
+	public static void writeFile() throws Exception {
+		// write to file
+		try {
+			BufferedWriter writeStream = null;
+			//			FileOutputStream writeData = new FileOutputStream("attendance5.txt");
+			//			ObjectOutputStream writeStream = new ObjectOutputStream(writeData);
+			new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File("attendance5.txt"), true),
+					StandardCharsets.UTF_8));
+			// writeStream.writeObject(studentList);
+			studentList.stream().forEach(data -> {
+				try {
+					writeStream.write(data.toString());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			});
+			writeStream.flush();
+			writeStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public static void readFile() throws Exception {
+		try {
+
+			FileInputStream readData = new FileInputStream("attendance5.txt");
+			ObjectInputStream readStream = new ObjectInputStream(readData);
+
+			ArrayList<Student> people2 = (ArrayList<Student>) readStream.readObject();
+			readStream.close();
+			System.out.println("ID" + " " + "Name" + "       " + "Attendance Status");
+			people2.stream().forEach(data -> {
+				System.out.println(data.toString());
+			});
+			System.out.println();
+
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void checkStudent() throws IOException {
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		System.out.println("Enter The Student ID");
+		String userinput;
+		try {
+			userinput = reader.readLine();
+			List<Student> filterStudent = studentList.stream()
+					.filter(data -> data.studentId == Integer.parseInt(userinput)).collect(Collectors.toList());
+			if (filterStudent.size() > 0) {
+				System.out.println("Enter The attendance status (p or a)");
+				char attendanceStatus = (char) reader.read();
+
+				filterStudent.stream().forEach(data -> {
+					if (data.studentId == Integer.parseInt(userinput)) {
+						data.setAttendanceStatus(attendanceStatus);
+
+					}
+				});
+
+				writeFile();
+				System.out.println("Attendance data has been written to file");
+				readFile();
+
+			} else {
+				System.out.println("Please Enter the correct student ID");
+				checkStudent();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Please enter the number");
+			checkStudent();
+			// e.printStackTrace();
+		}
+
+	}
+
+	static boolean status = true;
+
+	public static void main(String[] args) throws Exception {
+		do {
+			Student student = new Student();
+			String userinput = student.initialDisplay();
+			limit_runtime = limit_runtime + 1;
+			if (limit_runtime == 1) {
+				student.addStudent();
+			}
+			// writeFile();
+			switch (userinput) {
+			case "1":
+				student.viewAttendance();
+				break;
+			case "2":
+				student.markAttendance();
+
+				break;
+			case "3":
+				exit();
+				break;
+			default:
+				showErrorMessage();
+
+			}
+
+		} while (status);
+	};
+
+	public static void exit() {
+		System.out.println("Exiting Student Attendence Management System Goodbye!");
+		status = false;
+	}
+
+	public static void showErrorMessage() throws Exception {
+		System.out.println("Invalid choice. Please enter a number");
+		main(null);
+	}
+}

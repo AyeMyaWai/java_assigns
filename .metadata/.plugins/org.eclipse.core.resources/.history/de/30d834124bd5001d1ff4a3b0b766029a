@@ -1,0 +1,17 @@
+package com.example;
+
+public class Rectangle extends Shape {
+	void getArea() {
+		areaOfCircle = 3.147 * radius * radius;
+		System.out.println(areaOfCircle);
+
+	}
+
+	void getParameter() {
+		perimeterOfCircle = 2 * 3.147 * radius;
+		System.out.println(perimeterOfCircle);
+
+	}
+
+
+}

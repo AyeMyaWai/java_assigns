@@ -1,0 +1,7 @@
+package com.example;
+
+public interface Attendance {
+	
+public void viewAttendance();
+public void markAttendance();
+}

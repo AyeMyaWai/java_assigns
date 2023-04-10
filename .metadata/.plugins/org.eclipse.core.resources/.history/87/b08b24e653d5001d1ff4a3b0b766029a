@@ -1,0 +1,19 @@
+package com.example;
+
+public class Rectangle extends Shape {
+	double length;
+	double width;
+
+	void getArea() {
+
+		System.out.println("Area of Rectangle" + " " + (length * width));
+
+	}
+
+	void getPerimeter() {
+
+		System.out.println("Premiter of Rectangle" + "  "+ (2 * length * width));
+
+	}
+
+}

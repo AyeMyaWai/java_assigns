@@ -1,0 +1,63 @@
+package com.example;
+
+import java.io.*;
+import java.util.*;
+
+public class CalculateExpence {
+	static boolean status;
+    static int inputHouseRent() {
+    	try {
+    	String houseRent;
+    	Scanner input = new Scanner(System.in);
+    	System.out.print("Enter House Rent: ");
+		 houseRent = input.nextLine();
+		
+    	}catch(NumberFormatException e) {
+    		
+    		System.out.println("Enter house rent number");
+    		inputHouseRent();
+    	}
+    	
+		return Integer.parseInt(houseRent);
+
+    }
+	public static void main(String[] args) {
+		ArrayList<Integer> information = new ArrayList<>();
+		do {
+			try {
+				Scanner input = new Scanner(System.in);
+                 int houseRent = inputHouseRent();
+                 information.add(houseRent);
+				
+				System.out.print("Enter Phone Bill: ");
+				String phone_bill = input.nextLine();
+				information.add(Integer.parseInt(phone_bill));
+
+				System.out.print("Enter Shopping: ");
+				String shopping = input.nextLine();
+				information.add(Integer.parseInt(shopping));
+
+				System.out.print("Enter Electricity Bill: ");
+				String electricity_bill = input.nextLine();
+				information.add(Integer.parseInt(electricity_bill));
+
+				System.out.print("Enter Water Supply Bill: ");
+				String water_supply_bill = input.nextLine();
+				information.add(Integer.parseInt(water_supply_bill));
+
+				System.out.print("Enter Gas Bill: ");
+				String gas_bill = input.nextLine();
+				information.add(Integer.parseInt(gas_bill));
+				int sum = 0;
+				for (int amount : information) {
+					sum += amount;
+				}
+				System.out.println("Remaining Amount is " + (2000000 - sum));
+			} catch (NumberFormatException e) {
+				System.out.println("Exception: " + e);
+			}
+		} while (status);
+
+	}
+
+}

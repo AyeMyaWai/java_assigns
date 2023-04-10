@@ -1,0 +1,18 @@
+package com.example;
+
+public class Circle extends Shape {
+	double radius;
+
+	void getArea() {
+
+		System.out.println(3.147 * radius * radius);
+
+	}
+
+	void getPerimeter() {
+
+		System.out.println(2 * 3.147 * radius);
+
+	}
+
+}

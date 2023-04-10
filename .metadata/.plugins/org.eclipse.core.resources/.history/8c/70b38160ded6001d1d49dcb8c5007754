@@ -1,0 +1,69 @@
+package mondai;
+
+import java.util.*;
+
+public class Student {
+	String name;
+	int age;
+	String gender;
+	String classname;
+    
+	public Student(String name, int age, String gender, String classname) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+		this.classname = classname;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getClassname() {
+		return classname;
+	}
+
+	public void setClassname(String classname) {
+		this.classname = classname;
+	}
+	
+	public String toString() {
+		return ("Student name is" + this.getName()+ " Age is"+ this.getAge()+" Gender is "+this.getGender()+
+				"Class Name is "+ this.getClassname());
+	}
+	public static void main(String[] args) {
+		List<Student> studentList = new ArrayList<Student>();
+		Student student1 = new Student("Wai Wai", 21, "Female", "Class B");
+		Student student2 = new Student("Hla Hla", 21, "Female", "Class A");
+		Student student3 = new Student("Mya Mya ", 21, "Female", "Class A");
+		studentList.add(student1);
+		studentList.add(student2);
+		studentList.add(student3);
+		studentList.stream().forEach(data->System.out.println(data.toString()));
+		
+		
+	}
+
+
+}

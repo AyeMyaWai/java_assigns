@@ -1,0 +1,20 @@
+package com.example;
+
+public class Rectangle extends Shape {
+	double length;
+	double width;
+	
+	void getArea() {
+		
+		System.out.println(length * width);
+
+	}
+
+	void getParameter() {
+		
+		System.out.println(2*length * width);
+
+	}
+
+
+}

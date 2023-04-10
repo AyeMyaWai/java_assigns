@@ -1,0 +1,33 @@
+package com.example;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+public class Shape {
+	String color;
+	void getArea() {
+		
+	}
+	void getParameter() {
+		
+	}
+	public static void main(String[] args) {
+		System.out.println("Welcome to Area and Perimeter Calculator:");
+		System.out.println("Enter the radius of the circle");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		try {
+//			String radius = reader.readLine();
+//			System.out.println("Enter the width of the rectangle");
+//			String width = reader.readLine();
+//			System.out.println("Enter the width of the rectangle");
+//			String height = reader.readLine();
+			Circle circle = new Circle();
+			System.out.println(circle.radius);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+}

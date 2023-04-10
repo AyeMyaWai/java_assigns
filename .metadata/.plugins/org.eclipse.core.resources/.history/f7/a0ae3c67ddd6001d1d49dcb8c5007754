@@ -1,0 +1,66 @@
+package com.example;
+
+public class Student {
+	String name;
+	int age;
+	String gender;
+	String classname;
+
+	public Student(String name, int age, String gender, String classname) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.gender = gender;
+		this.classname = classname;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getClassname() {
+		return classname;
+	}
+
+	public void setClassname(String classname) {
+		this.classname = classname;
+	}
+	
+	public static void main(String[] args) {
+		Student student1 = new Student("Wai Wai", 21, "Female", "Class B");
+		Student student2 = new Student("Hla Hla", 21, "Female", "Class A");
+		Student student3 = new Student("Mya Mya ", 21, "Female", "Class A");
+		System.out.println("Student One's Name is " + student1.getName() + " Age is " + student1.getAge()
+				+ " Student Gender is " + student1.getGender() + " Student Class " + student1.getClassname());
+
+		System.out.println(" Student Two's Name is " + student2.getName() + " Age is " + student2.getAge()
+				+ " Student Gender is " + student2.getGender() + " Student Class " + student2.getClassname());
+
+		System.out.println(" Student Three's Name is " + student3.getName() + " Age is " + student3.getAge()
+				+ " Student Gender is " + student3.getGender() + " Student Class " + student3.getClassname());
+
+		
+	}
+
+
+}
